@@ -1,0 +1,51 @@
+from random import randint
+import timeit
+import matplotlib as mpl
+import timeit
+from random import randint
+import matplotlib.pyplot as plt
+
+def bubbleSort(seq):
+    count = 0
+    k = len(seq)
+    for i in range(k):
+        for j in range(0, k-i-1):
+            count+=1
+            if seq[j] > seq[j+1] :
+                seq[j], seq[j+1] = seq[j+1], seq[j]
+    return count
+
+def geraLista(tam):
+    lista = []
+    while len(lista) < tam:
+        n = randint(1,1*tam)
+        if n not in lista: lista.append(n)
+    return lista
+
+def desenhaGrafico(x,bubSort,xl = "Entradas", yl = "loops",nam="img"):
+    fig = plt.figure(figsize=(8, 10))
+    ax = fig.add_subplot(111)
+    ax.plot(x,bubSort, label = "Bubble Sort")
+    ax.legend(bbox_to_anchor=(1, 1),bbox_transform=plt.gcf().transFigure)
+    plt.ylabel(yl)
+    plt.xlabel(xl)
+    plt.show()
+    plt.savefig(nam)
+
+
+  
+lista = [1000,10000,30000,60000]
+saidaX = []
+saidaY = []
+
+
+for i in range(len(lista)):
+  saidaX.append(timeit.timeit("bubbleSort({})".format(geraLista(lista[i])),setup="from __main__ import geraLista,bubbleSort",number=1))
+
+desenhaGrafico(lista,saidaX,nam="tempo")
+
+for i in range(len(lista)):
+
+  saidaY.append(bubbleSort(geraLista(lista[i])))
+
+desenhaGrafico(lista,saidaY,nam="cont")
