@@ -42,25 +42,25 @@ def desenhaGrafico(x,lista1,lista2,xl = "Entradas", yl = "Y",name="out", plotg1 
     plt.savefig(name)
 
   
-quant = [10000, 20000, 50000, 100000]
+x = [100, 10000, 30000, 60000]
 graf_tempoRand = []
 graf_tempoInvertida = []
 print("List Rand")
-for i in range(len(quant)):
-    print(quant[i])
-    listaRand = geraLista(quant[i])
+for i in range(len(x)):
+    print(x[i])
+    listaRand = geraLista(x[i])
     graf_tempoRand.append(timeit.timeit("insertionSort({})".format(listaRand),setup="from __main__ import insertionSort",number=1))
 grafOpRand = grafOp
 grafOp = []
 
 print("Lista Invertida")
-for i in range(len(quant)):
-    print(quant[i])
-    listaInvertida = geraListaInvertida(quant[i])
+for i in range(len(x)):
+    print(x[i])
+    listaInvertida = geraListaInvertida(x[i])
     graf_tempoInvertida.append(timeit.timeit("insertionSort({})".format(listaInvertida),setup="from __main__ import insertionSort",number=1))
 
 grafOpInvertida = grafOp
 grafOp = []
 
-desenhaGrafico(quant,graf_tempoRand,graf_tempoInvertida,"Tamanho", "Tempo", "Tempo")
-desenhaGrafico(quant,grafOpRand,grafOpInvertida, "Tamanho", "Operacoes", "Operacoes")
+desenhaGrafico(x,graf_tempoRand,graf_tempoInvertida,"Tamanho", "Tempo", "Tempo")
+desenhaGrafico(x,grafOpRand,grafOpInvertida, "Tamanho", "Operacoes", "Operacoes")
