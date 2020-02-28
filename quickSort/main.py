@@ -39,4 +39,4 @@ for i in range(len(tam)):
     times.append(timeit.timeit("quickSort({}, {}, {})".format(listaInvertida, 0, len(listaInvertida)),
                                setup="from __main__ import quickSort, pivoRand, frag", number=1))
 
-desenha_grafico(tam, times, "Tempo.png", "Tempo gasto pelo quickSort", xl="Tamanho da lista", yl="Tempo")
+desenha_grafico(tam, times, "Tempo.png", "Tempo gasto", xl="Tamanho da lista", yl="Tempo")
