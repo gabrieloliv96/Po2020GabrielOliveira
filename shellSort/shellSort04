@@ -1,0 +1,43 @@
+import timeit
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+from random import shuffle
+mpl.use('Agg')
+
+def desenhaGrafico(x, y, figura, xLabel ="Entradas", yLabel ="Saídas"):
+    fig = plt.figure(figsize=(10, 8))
+    ax = fig.add_subplot(111)
+    ax.plot(x, y, label ="Lista aleatória")
+    ax.legend(bbox_to_anchor=(1, 1),bbox_transform=plt.gcf().transFigure)
+    plt.ylabel(yLabel)
+    plt.xlabel(xLabel)
+    plt.savefig(figura)
+
+def geraLista(tam):
+    lista = list(range(1, tam + 1))
+    shuffle(lista)
+    return lista
+
+def shellSort(lista):
+    tam = len(lista)
+    pivo = tam // 2
+
+    while pivo > 0:
+        for i in range(pivo, tam):
+            aux = lista[i]
+            j = i
+            while j >= pivo and lista[j - pivo] > aux:
+                lista[j] = lista[j - pivo]
+                j -= pivo
+            lista[j] = aux
+        pivo //= 2
+
+
+tam = [30000,40000,50000,60000,70000]
+tempo = []
+
+for i in range(5):
+    lista = geraLista(tam[i])
+    tempo.append(timeit.timeit("shellSort({})".format(lista), setup="from __main__ import shellSort", number=1))
+
+desenhaGrafico(tam, tempo, "Tempo.png", 'tamanho da lista', 'Tempo para ordenar')
